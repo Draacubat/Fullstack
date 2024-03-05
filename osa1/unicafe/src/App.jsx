@@ -11,14 +11,23 @@ const Header = () => {
 }
 
 const Statistics = ({clicks}) => {
+  const { good, neutral, bad } = clicks
+
+  const total = good + neutral + bad
+  const average = total === 0 ? 0 : (good - bad) / total
+  const positivePercentage = total === 0 ? 0 : (good/total) * 100
+
   return (
     <div>
       <h1>
         statistics
       </h1>
-      <p>good {clicks.good}</p>
-      <p>neutral {clicks.neutral}</p>
-      <p>bad {clicks.bad}</p>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>all {total}</p>
+      <p>average {average}</p>
+      <p>positive {positivePercentage} %</p>
     </div>
   )
 }
@@ -28,7 +37,7 @@ const App = () => {
   const [clicks, setReviewClicks] = useState({
     good: 0,
     neutral: 0,
-    bad: 0,
+    bad: 0
   })
 
   const handleGoodClicks = () => {
