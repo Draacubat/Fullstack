@@ -13,20 +13,30 @@ const Header = () => {
 const Statistics = ({ clicks }) => {
   const { good, neutral, bad} = clicks
   const total = good + neutral + bad
-  const average = total === 0 ? 0 : (good - bad) / total
-  const positivePercentage = total === 0 ? 0 : (good/total) * 100
+
+  const feedbackGiven = total > 0
+  
+  const average = feedbackGiven ?  (good - bad) / total : 0
+  const positivePercentage = feedbackGiven  ?  (good/total) * 100 : 0
 
   return (
     <div>
       <h1>
         statistics
       </h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {total}</p>
-      <p>average {average}</p>
-      <p>positive {positivePercentage} %</p>
+      {feedbackGiven ? (
+        <>
+         <p>good {good}</p>
+          <p>neutral {neutral}</p>
+          <p>bad {bad}</p>
+          <p>all {total}</p>
+          <p>average {average}</p>
+          <p>positive {positivePercentage} %</p>
+        </>
+      ) : (
+        <p>No feedback given</p>
+      )}
+     
     </div>
   )
 }
